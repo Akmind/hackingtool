@@ -1,0 +1,36 @@
+from itertools import permutations
+
+def generate_letter_combinations(word):
+    return [''.join(p) for p in permutations(word)]
+
+def generate_combinations(elements, max_length=2):
+    all_combinations = []
+    for i in range(1, max_length + 1):
+        for combo in permutations(elements, i):
+            all_combinations.append(''.join(combo))
+    return all_combinations
+
+# Input words from the user
+user_input = "ab cd"  # Example input
+words = user_input.split()
+
+symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', ':', ';', '!', '?', '/', '.', ',']
+numbers = [str(i) for i in range(10)]
+
+# Generate all letter permutations for each word
+expanded_words = []
+for word in words:
+    expanded_words.extend(generate_letter_combinations(word))
+
+# Combine all elements into a single list
+elements = expanded_words + symbols + numbers
+
+# Generate combinations of given elements
+combinations = generate_combinations(elements, max_length=2)
+
+# Store the combinations in a file
+with open('passgenerate.txt', 'w') as file:
+    for combo in combinations:
+        file.write(combo + '\n')
+
+print(f"Combinations have been saved to passgenerate.txt")
